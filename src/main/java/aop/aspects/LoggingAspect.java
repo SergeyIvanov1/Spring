@@ -7,8 +7,28 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class LoggingAspect {
-    @Before("execution(public void getBook())")
+    @Before("execution(public void getBook(String))")
     public void beforeGetBookAdvice(){
-        System.out.println("Log: beforeGetBookAdvice - Attempt to get the book");
+        System.out.println("Log: beforeGetBookAdvice");
+    }
+
+    @Before("execution(public void getBook(aop.Book))")
+    public void beforeGetBookWithParameterBookAdvice(){
+        System.out.println("Log: beforeGetBookWithParameterBookAdvice");
+    }
+
+    @Before("execution(public void getBook(*))")
+    public void beforeGetBookWithAnyParameterAdvice(){
+        System.out.println("Log: method beforeGetBookWithAnyParameterAdvice - Attempt to get the book");
+    }
+
+    @Before("execution(public void *(*))")
+    public void beforeAnyMethodWithAnyOneParameterAdvice(){
+        System.out.println("Log: method beforeAnyMethodWithAnyOneParameterAdvice - Attempt to get the book");
+    }
+
+    @Before("execution(public void *(..))")
+    public void beforeAnyMethodWithAnyAmountOfAnyParametersAdvice(){
+        System.out.println("Log: method beforeAnyMethodWithAnyAmountOfAnyParametersAdvice");
     }
 }
