@@ -13,7 +13,6 @@ public class Test1 {
         library.getMagazine();
         library.getBook(5);
 
-
         context.close();
     }
 }
