@@ -2,12 +2,13 @@ package aop.aspects;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class LoggingAndSecurityAspect {
+@Order(1)
+public class LoggingAspect {
 
 //    @Before("execution(public void getBook(String))")
 //    public void beforeGetBookAdvice(){
@@ -38,20 +39,13 @@ public class LoggingAndSecurityAspect {
 //    public void beforeReturnBookWithAnyReturnTypeAdvice(){
 //        System.out.println("Log: beforeReturnBookWithAnyReturnTypeAdvice - Attempt to return the book (public * returnBook())\n");
 //    }
-//
-//    @Pointcut("execution(public * get*())")
-//    private void allGetMethods(){}
-//
-//    @Before("allGetMethods()")
-//    public void before_GET_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(){
-//        System.out.println("Log: before_GET_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
-//    }
-//
-//    @Before("allGetMethods()")
-//    public void before_GET_SECURITY_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(){
-//        System.out.println("Log: before_GET_SECURITY_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
-//    }
 
+
+
+    @Before("aop.aspects.MyPointcuts.allGetMethods()")
+    public void before_GET_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(){
+        System.out.println("Log: before_GET_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
+    }
 
 
 //    @Pointcut("execution(* aop.UniLibrary.get*())")
