@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Order(2)
 public class SecurityAspect {
-    @Before("aop.aspects.MyPointcuts.allGetMethods()")
-    public void before_GET_SECURITY_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(){
-        System.out.println("Security: before_GET_SECURITY_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
+    @Before("aop.aspects.MyPointcuts.allAddMethods()")
+    public void before_Add_SECURITY_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(){
+        System.out.println("Security: before_Add_SECURITY_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
     }
 
 }

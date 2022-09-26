@@ -1,9 +1,15 @@
 package aop.aspects;
 
+import aop.Book;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.sql.SQLOutput;
 
 @Component
 @Aspect
@@ -42,9 +48,29 @@ public class LoggingAspect {
 
 
 
-    @Before("aop.aspects.MyPointcuts.allGetMethods()")
-    public void before_GET_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(){
-        System.out.println("Log: before_GET_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
+    @Before("aop.aspects.MyPointcuts.allAddMethods()")
+    public void before_Add_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice(JoinPoint joinPoint){
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("methodSignature = " + methodSignature);
+        System.out.println("methodSignature.getMethod() = " + methodSignature.getMethod());
+        System.out.println("methodSignature.getReturnType() = " + methodSignature.getReturnType());
+        System.out.println("methodSignature.getName() = " + methodSignature.getName());
+
+        if (methodSignature.getName().equals("addBook")){
+             Object[] arguments = joinPoint.getArgs();
+            for (Object obj : arguments) {
+                if (obj instanceof Book){
+                    Book myBook = (Book) obj;
+                    System.out.println("Info about book:\n" +
+                            "book name - " + myBook.getName() + "\n" +
+                            "author - " + myBook.getAuthor() + "\n" +
+                            "yearOfPublication - " + myBook.getYearOfPublication());
+                } else if (obj instanceof String){
+                    System.out.println("the book is adding to the library - " + obj);
+                }
+            }
+        }
+        System.out.println("Log: before_Add_LOG_WithoutModifierAnyReturnTypeAnyMethodStartWithGetWithoutParametersAdvice");
     }
 
 

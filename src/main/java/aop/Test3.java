@@ -2,21 +2,20 @@ package aop;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class Test1 {
+public class Test3 {
     public static void main(String[] args) {
+        System.out.println("method main starts");
+
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(MyConfig.class);
 
         UniLibrary uniLibrary = context.getBean("uniLibrary", UniLibrary.class);
-        Book book = context.getBean("book", Book.class);
-        uniLibrary.getBook();
-        uniLibrary.addBook("Sergey", book);
-        uniLibrary.addMagazine();
-
-//        uniLibrary.returnMagazine();
-//        uniLibrary.addBook();
-//        library.getBook(5);
+        String returnBook = uniLibrary.returnBook();
+        System.out.println("to the library returning book - " + returnBook);
 
         context.close();
+        System.out.println("method main end");
+
     }
+
 }
