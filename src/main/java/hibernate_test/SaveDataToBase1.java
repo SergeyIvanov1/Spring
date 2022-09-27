@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class GetQuery {
+public class SaveDataToBase1 {
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -14,20 +14,10 @@ public class GetQuery {
 
         try {
             Session session = factory.getCurrentSession();
-            Employee emp = new Employee("Oleg", "Sidorov", "HR", 700);
+            Employee emp = new Employee("Sergey", "Ivanov", "IT", 500);
             session.beginTransaction();
             session.save(emp); //hibernate here create sql code (insert) data to the base
-//            session.getTransaction().commit();
-            int id = emp.getId();
-
-//            session = factory.getCurrentSession();
-//            session.beginTransaction();
-            Employee employee = session.get(Employee.class, id);
             session.getTransaction().commit();
-
-            System.out.println(employee);
-
-            System.out.println("Done!");
         } finally {
             factory.close();
         }
