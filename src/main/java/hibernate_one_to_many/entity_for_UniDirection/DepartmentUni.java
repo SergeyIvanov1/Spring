@@ -1,4 +1,4 @@
-package hibernate_one_to_many.entity;
+package hibernate_one_to_many.entity_for_UniDirection;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "departments")
-public class Department {
+public class DepartmentUni {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id") //because foreign key is refers from the table employees, table department called target table
@@ -17,26 +17,29 @@ public class Department {
     private int maxSalary;
     @Column(name = "min_Salary")
     private int minSalary;
-    @OneToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, mappedBy = "department") //for right delete objects. was not cascade delete
+//    @OneToMany(cascade = {CascadeType.PERSIST,
+//            CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, mappedBy = "department") //for right delete objects. was not cascade delete
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-    private List<Employee> emps;
 
-    public Department() {
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id")
+    private List<EmployeeUni> emps;
+
+    public DepartmentUni() {
     }
 
-    public Department(String name, int maxSalary, int minSalary) {
+    public DepartmentUni(String name, int maxSalary, int minSalary) {
         this.name = name;
         this.maxSalary = maxSalary;
         this.minSalary = minSalary;
     }
 
-    public void addEmployeeToDepartment(Employee employee){
+    public void addEmployeeToDepartment(EmployeeUni employee){
         if (emps == null){
             emps = new ArrayList<>();
         }
         emps.add(employee);
-        employee.setDepartment(this);
+//        employee.setDepartment(this);
     }
 
     public String getName() {
@@ -71,11 +74,11 @@ public class Department {
         this.id = id;
     }
 
-    public List<Employee> getEmps() {
+    public List<EmployeeUni> getEmps() {
         return emps;
     }
 
-    public void setEmps(List<Employee> emps) {
+    public void setEmps(List<EmployeeUni> emps) {
         this.emps = emps;
     }
 
